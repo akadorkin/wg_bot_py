@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  wg_bot:
+    build: .
+    container_name: wg_bot_py-wg_bot
+    restart: unless-stopped
+    volumes:
+      - ./data/configs:/app/data/configs
+      - ./data/users:/app/data/users
+      - ./logs:/app/logs
+    environment:
+      - API_TOKEN=${API_TOKEN}
+      - AUTHORIZED_USER_ID=${AUTHORIZED_USER_ID}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "7"
